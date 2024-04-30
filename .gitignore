@@ -1,8 +1,11 @@
 
 .vs/
-FougereCMD/bin/Debug/Fougere.zip
-FougereCMD/bin/Release/Fougere.zip
+FougereCMD/bin/Debug/FougereCMD.zip
+FougereCMD/bin/Release/FougereCMD.zip
 FougereCMD/obj/
+FougereGUI/bin/Debug/FougereGUI.zip
+FougereGUI/bin/Release/FougereGUI.zip
+FougereGUI/obj/
 *.mtm2
 *.cmr2
 *.mtn2
