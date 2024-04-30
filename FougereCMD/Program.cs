@@ -18,7 +18,7 @@ namespace FougereCMD
                 Console.WriteLine("Options:");
                 Console.WriteLine("-h: help");
                 Console.WriteLine("-d [input_path]: decompress .mtn2/.imm2/.mtm2 to json");
-                Console.WriteLine("-c [input_path]: compress readable json to .mtn2/.imm2/.mtm2");
+                Console.WriteLine("-c [input_path] [output_path]: compress readable json to .mtn2/.imm2/.mtm2");
                 return;
             }
 
@@ -26,8 +26,8 @@ namespace FougereCMD
             {
                 Console.WriteLine("Options:");
                 Console.WriteLine("-h: help");
-                Console.WriteLine("-d [input_path]: decompress .sil to json");
-                Console.WriteLine("-c [input_path] [output_path]: compress readable json to .sil");
+                Console.WriteLine("-d [input_path]: decompress .mtn2/.imm2/.mtm2 to json");
+                Console.WriteLine("-c [input_path] [output_path]: compress readable json to .mtn2/.imm2/.mtm2");
             }
             else if (args[0] == "-d")
             {
