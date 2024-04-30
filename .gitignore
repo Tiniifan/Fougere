@@ -1,0 +1,10 @@
+
+.vs/
+Fougere/bin/Debug/Fougere.zip
+Fougere/bin/Release/Fougere.zip
+Fougere/obj/
+*.mtm2
+*.cmr2
+*.mtn2
+*.imm2
+*.json
