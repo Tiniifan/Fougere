@@ -22,6 +22,11 @@ namespace FougereCMD.Level5.Animation
 
         public Dictionary<string, Dictionary<string, Dictionary<int, object>>> Nodes = new Dictionary<string, Dictionary<string, Dictionary<int, object>>>();
 
+        public AnimationManager()
+        {
+
+        }
+
         public AnimationManager(Stream stream)
         {
             Nodes.Add("Location", new Dictionary<string, Dictionary<int, object>>());
