@@ -1,0 +1,12 @@
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\bin\Release\FougereGUI.exe.config
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\bin\Release\FougereGUI.exe
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\bin\Release\FougereGUI.pdb
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\bin\Release\Newtonsoft.Json.dll
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\bin\Release\Newtonsoft.Json.xml
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.FougereGUI.resources
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.Properties.Resources.resources
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.csproj.GenerateResource.cache
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.csproj.CoreCompileInputs.cache
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.csproj.CopyComplete
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.exe
+C:\Users\Mathieu\source\repos\Fougere\FougereGUI\obj\Release\FougereGUI.pdb

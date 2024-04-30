@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32510.428
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FougereCMD", "Fougere\FougereCMD.csproj", "{C1496EB4-1D5F-41FE-9A23-E23F96DBE7DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FougereCMD", "FougereCMD\FougereCMD.csproj", "{C1496EB4-1D5F-41FE-9A23-E23F96DBE7DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FougereGUI", "FougereGUI\FougereGUI.csproj", "{9B538E40-8129-4951-940A-A5845F311609}"
 EndProject

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9B538E40-8129-4951-940A-A5845F311609}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>FougereGUI</RootNamespace>
-    <AssemblyName>FougereGUI</AssemblyName>
+    <ProjectGuid>{C1496EB4-1D5F-41FE-9A23-E23F96DBE7DF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>FougereCMD</RootNamespace>
+    <AssemblyName>FougereCMD</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -44,19 +44,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FougereGUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FougereGUI.Designer.cs">
-      <DependentUpon>FougereGUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Level5\Animation\AnimationManager.cs" />
     <Compile Include="Level5\Animation\AnimationSupport.cs" />
     <Compile Include="Level5\Animation\Logic\AnimationData.cs" />
@@ -80,31 +71,11 @@
     <Compile Include="Tools\BinaryDataReader.cs" />
     <Compile Include="Tools\BinaryDataWriter.cs" />
     <Compile Include="Tools\Crc32.cs" />
-    <EmbeddedResource Include="FougereGUI.resx">
-      <DependentUpon>FougereGUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

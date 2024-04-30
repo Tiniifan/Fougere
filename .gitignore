@@ -1,10 +1,11 @@
 
 .vs/
-Fougere/bin/Debug/Fougere.zip
-Fougere/bin/Release/Fougere.zip
-Fougere/obj/
+FougereCMD/bin/Debug/Fougere.zip
+FougereCMD/bin/Release/Fougere.zip
+FougereCMD/obj/
 *.mtm2
 *.cmr2
 *.mtn2
 *.imm2
 *.json
+*.decomp
