@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FougereGUI.Level5.Animation.Logic
+namespace FougereCMD.Level5.Animation.Logic
 {
-    public class Rotation
+    public class BoneRotation
     {
-        public float X;
-        public float Y;
-        public float Z;
-        public float W;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
+        public float W { get; set; }
 
-        public Rotation(float x, float y, float z, float w)
+        public BoneRotation()
+        {
+
+        }
+
+        public BoneRotation(float x, float y, float z, float w)
         {
             X = x;
             Y = y;

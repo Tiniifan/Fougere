@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FougereGUI.Level5.Animation.Logic
 {
-    public class Scale
+    public class TextureUnk
     {
-        public float X;
-        public float Y;
-        public float Z;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
 
-        public Scale(float x, float y, float z)
+        public TextureUnk()
+        {
+
+        }
+
+        public TextureUnk(float x, float y, float z)
         {
             X = x;
             Y = y;

@@ -85,6 +85,11 @@ namespace FougereGUI.Tools
             _stream.Seek(position, SeekOrigin.Begin);
         }
 
+        public void Seek(long position)
+        {
+            _stream.Seek(position, SeekOrigin.Begin);
+        }
+
         public void Seek(int position)
         {
             if (position > -1)

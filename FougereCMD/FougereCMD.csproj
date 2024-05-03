@@ -50,10 +50,12 @@
   <ItemGroup>
     <Compile Include="Level5\Animation\AnimationManager.cs" />
     <Compile Include="Level5\Animation\AnimationSupport.cs" />
-    <Compile Include="Level5\Animation\Logic\AnimationData.cs" />
-    <Compile Include="Level5\Animation\Logic\Location.cs" />
-    <Compile Include="Level5\Animation\Logic\Rotation.cs" />
-    <Compile Include="Level5\Animation\Logic\Scale.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneLocation.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneRotation.cs" />
+    <Compile Include="Level5\Animation\Logic\TextureUnk.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneScale.cs" />
+    <Compile Include="Level5\Animation\Logic\TextureBrightness.cs" />
+    <Compile Include="Level5\Animation\Logic\UVScale.cs" />
     <Compile Include="Level5\Animation\Logic\UVMove.cs" />
     <Compile Include="Level5\Compression\Compressor.cs" />
     <Compile Include="Level5\Compression\ETC1\ETC1.cs" />

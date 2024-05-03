@@ -93,6 +93,11 @@ namespace FougereCMD.Tools
             }
         }
 
+        public void Seek(long position)
+        {
+            _stream.Seek(position, SeekOrigin.Begin);
+        }
+
         public byte[] GetSection(int size)
         {
             long temp = _stream.Position;

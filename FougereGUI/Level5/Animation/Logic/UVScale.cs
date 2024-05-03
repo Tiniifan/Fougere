@@ -2,17 +2,17 @@
 
 namespace FougereGUI.Level5.Animation.Logic
 {
-    public class UVMove
+    public class UVScale
     {
         public float X { get; set; }
         public float Y { get; set; }
 
-        public UVMove()
+        public UVScale()
         {
 
         }
 
-        public UVMove(float x, float y)
+        public UVScale(float x, float y)
         {
             X = x;
             Y = y;

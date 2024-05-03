@@ -12,3 +12,6 @@ FougereGUI/obj/
 *.imm2
 *.json
 *.decomp
+*.bin
+*.xc
+*.pck

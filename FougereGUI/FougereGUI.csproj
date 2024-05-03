@@ -34,7 +34,11 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -57,13 +61,21 @@
     <Compile Include="FougereGUI.Designer.cs">
       <DependentUpon>FougereGUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="InputComboBoxWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputComboBoxWindow.Designer.cs">
+      <DependentUpon>InputComboBoxWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Level5\Animation\AnimationManager.cs" />
     <Compile Include="Level5\Animation\AnimationSupport.cs" />
-    <Compile Include="Level5\Animation\Logic\AnimationData.cs" />
-    <Compile Include="Level5\Animation\Logic\Location.cs" />
-    <Compile Include="Level5\Animation\Logic\Rotation.cs" />
-    <Compile Include="Level5\Animation\Logic\Scale.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneLocation.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneRotation.cs" />
+    <Compile Include="Level5\Animation\Logic\BoneScale.cs" />
+    <Compile Include="Level5\Animation\Logic\TextureBrightness.cs" />
+    <Compile Include="Level5\Animation\Logic\TextureUnk.cs" />
     <Compile Include="Level5\Animation\Logic\UVMove.cs" />
+    <Compile Include="Level5\Animation\Logic\UVScale.cs" />
     <Compile Include="Level5\Compression\Compressor.cs" />
     <Compile Include="Level5\Compression\ETC1\ETC1.cs" />
     <Compile Include="Level5\Compression\ETC1\ETC1Decoder.cs" />
@@ -82,6 +94,9 @@
     <Compile Include="Tools\Crc32.cs" />
     <EmbeddedResource Include="FougereGUI.resx">
       <DependentUpon>FougereGUI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputComboBoxWindow.resx">
+      <DependentUpon>InputComboBoxWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

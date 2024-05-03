@@ -1,27 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FougereCMD.Level5.Animation.Logic
 {
-    public class Location
+    public class BoneScale
     {
-        public float X;
-        public float Y;
-        public float Z;
+        public float X { get; set; }
+        public float Y { get; set; }
+        public float Z { get; set; }
 
-        public Location(float x, float y, float z)
+        public BoneScale()
+        {
+
+        }
+
+        public BoneScale(float x, float y, float z)
         {
             X = x;
             Y = y;
             Z = z;
-        }
-
-        public override string ToString()
-        {
-            return "(" + X + ", " + Y + ", " + Z + ")";
         }
 
         public byte[] ToByte()

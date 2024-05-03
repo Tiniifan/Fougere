@@ -40,17 +40,22 @@ namespace FougereCMD
                 AnimationManager animationManager = new AnimationManager(new FileStream(args[1], FileMode.Open, FileAccess.Read));
 
                 // Get the output path
-                string outputFileName = Path.GetFileNameWithoutExtension(args[1]) + ".json";
-                string outputDirectory = Path.Combine(Path.GetDirectoryName(args[1]), outputFileName);
+                string outputFileName = Path.GetFileNameWithoutExtension(args[2]) + ".json";
+                string outputDirectory = Path.Combine(Path.GetDirectoryName(args[2]), outputFileName);
 
                 // Convert as json
                 File.WriteAllText(outputDirectory, animationManager.ToJson());
             }
             else if (args[0] == "-c")
             {
-                if (args.Length < 2)
+                if (args.Length < 1)
                 {
-                    Console.WriteLine("Please provide input and output file names for the -c option.");
+                    Console.WriteLine("Please provide input path for the -c option.");
+                    return;
+                }
+                else if (args.Length < 2)
+                {
+                    Console.WriteLine("Please provide output path for the -c option.");
                     return;
                 }
 
