@@ -491,6 +491,7 @@ namespace FougereGUI.Level5.Animation
                     keyFrameCount = (highFrameCount << 8) | lowFrameCount;
                 }
 
+                
                 data.Seek(keyDataOffset);
                 for (int k = 0; k < keyFrameCount; k++)
                 {
@@ -532,33 +533,36 @@ namespace FougereGUI.Level5.Animation
                 Nodes[AnimationSupport.TrackType[type]].Add(nameHash, new Dictionary<int, object>());
             }
 
-            if (type == 1)
+            if (!Nodes[AnimationSupport.TrackType[type]][nameHash].ContainsKey(frame))
             {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneLocation((float)animData[0], (float)animData[1], (float)animData[2]));
-            }
-            else if (type == 2)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneRotation((float)animData[0], (float)animData[1], (float)animData[2], (float)animData[3]));
-            }
-            else if (type == 3)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneScale((float)animData[0], (float)animData[1], (float)animData[2]));
-            }
-            else if (type == 4)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new UVMove((float)animData[0], (float)animData[1]));
-            }
-            else if (type == 5)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new UVScale((float)animData[0], (float)animData[1]));
-            }
-            else if (type == 7)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new TextureBrightness((float)animData[0]));
-            }
-            else if (type == 8)
-            {
-                Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new TextureUnk((float)animData[0], (float)animData[1], (float)animData[2]));
+                if (type == 1)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneLocation((float)animData[0], (float)animData[1], (float)animData[2]));
+                }
+                else if (type == 2)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneRotation((float)animData[0], (float)animData[1], (float)animData[2], (float)animData[3]));
+                }
+                else if (type == 3)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new BoneScale((float)animData[0], (float)animData[1], (float)animData[2]));
+                }
+                else if (type == 4)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new UVMove((float)animData[0], (float)animData[1]));
+                }
+                else if (type == 5)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new UVScale((float)animData[0], (float)animData[1]));
+                }
+                else if (type == 7)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new TextureBrightness((float)animData[0]));
+                }
+                else if (type == 8)
+                {
+                    Nodes[AnimationSupport.TrackType[type]][nameHash].Add(frame, new TextureUnk((float)animData[0], (float)animData[1], (float)animData[2]));
+                }
             }
         }
 

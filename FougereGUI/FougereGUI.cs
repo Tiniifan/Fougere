@@ -27,24 +27,11 @@ namespace FougereGUI
             InitializeComponent();
         }
 
-        private TreeNode CreateTreeNode(Dictionary<string, Dictionary<int, object>> items)
+        private TreeNode CreateTreeNode(KeyValuePair<string, Dictionary<int, object>> item)
         {
             TreeNode itemNode = null;
 
-            foreach (KeyValuePair<string, Dictionary<int, object>> item in items)
-            {
-                itemNode = new TreeNode(item.Key);
-                itemNode.Tag = "Item";
-                itemNode.ContextMenuStrip = itemContextMenuStrip;
 
-                foreach (int frame in item.Value.Keys)
-                {
-                    TreeNode frameNode = new TreeNode(frame.ToString());
-                    frameNode.Tag = "Frame";
-                    frameNode.ContextMenuStrip = frameContextMenuStrip;
-                    itemNode.Nodes.Add(frameNode);
-                }
-            }
 
             return itemNode;
         }
@@ -66,14 +53,25 @@ namespace FougereGUI
                 categoryNode.Tag = "Category";
                 categoryNode.ContextMenuStrip = categoryContextMenuStrip;
 
-                TreeNode itemNode = CreateTreeNode(node.Value);
-
-                if (itemNode != null)
+                foreach (KeyValuePair<string, Dictionary<int, object>> item in node.Value)
                 {
+                    TreeNode itemNode = new TreeNode(item.Key);
+                    itemNode.Tag = "Item";
+                    itemNode.ContextMenuStrip = itemContextMenuStrip;
+
+                    foreach (int frame in item.Value.Keys)
+                    {
+                        TreeNode frameNode = new TreeNode(frame.ToString());
+                        frameNode.Tag = "Frame";
+                        frameNode.ContextMenuStrip = frameContextMenuStrip;
+                        itemNode.Nodes.Add(frameNode);
+                    }
+
                     categoryNode.Nodes.Add(itemNode);
                     categoryNode.Expand();
-                    rootNode.Nodes.Add(categoryNode);
                 }
+
+                rootNode.Nodes.Add(categoryNode);
             }
 
             mainTreeView.Nodes.Clear();
