@@ -278,11 +278,12 @@ namespace FougereGUI.Level5.Animation
                             foreach (var keyValuePair in node.Value)
                             {
                                 int nameInt = Convert.ToInt32(keyValuePair.Key, 16);
+                                int dataVectorSize = AnimationSupport.TrackDataCount[node.Key];
 
                                 AnimationSupport.Node nodeHeader = new AnimationSupport.Node
                                 {
                                     BoneNameHash = nameInt,
-                                    NodeType = 1,
+                                    NodeType = (byte)AnimationSupport.TrackType.FirstOrDefault(x => x.Value == node.Key).Key,
                                     DataType = 2,
                                     Unk1 = 1,
                                     Unk2 = 0,
@@ -291,11 +292,11 @@ namespace FougereGUI.Level5.Animation
                                     DataCount = keyValuePair.Value.Count,
                                     DifferentFrameCount = FrameCount + 1,
                                     DataByteSize = 4,
-                                    DataVectorSize = 3,
-                                    DataVectorLength = 0x0C,
+                                    DataVectorSize = dataVectorSize,
+                                    DataVectorLength = dataVectorSize * 4,
                                     DifferentFrameLength = (FrameCount + 1) * 2,
                                     FrameLength = keyValuePair.Value.Count * 2,
-                                    DataLength = keyValuePair.Value.Count * 0x0C
+                                    DataLength = keyValuePair.Value.Count * dataVectorSize * 4
                                 };
 
                                 // Write node table
