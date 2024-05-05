@@ -134,7 +134,26 @@ namespace FougereCMD.Level5.Animation
                 }
 
                 writer.Seek(0);
-                writer.WriteStruct(header);
+
+                if (Format == "XMTM")
+                {
+                    AnimationSupport.Header2 header2 = new AnimationSupport.Header2
+                    {
+                        Magic = FormatNameToLong(Format),
+                        EmptyBlock = 0x0,
+                        DecompSize = header.DecompSize,
+                        NameOffset = 0x24,
+                        CompDataOffset = 0x54,
+                        Track1Count = Nodes.Count() >= 1 ? Nodes.ElementAt(0).Value.Count() : 0,
+                        Track2Count = Nodes.Count() >= 2 ? Nodes.ElementAt(1).Value.Count() : 0,
+                    };
+
+                    writer.WriteStruct(header2);
+                }
+                else
+                {
+                    writer.WriteStruct(header);
+                }
             }
         }
 
