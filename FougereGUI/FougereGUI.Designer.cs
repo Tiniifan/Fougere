@@ -30,13 +30,14 @@ namespace FougereGUI
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
@@ -47,6 +48,7 @@ namespace FougereGUI
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rootContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renameAnimationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,8 +56,9 @@ namespace FougereGUI
             this.deleteFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.renameAnimationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createResourceDictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.variablesDataGridView)).BeginInit();
             this.rootContextMenuStrip.SuspendLayout();
@@ -68,7 +71,8 @@ namespace FougereGUI
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(680, 24);
@@ -96,6 +100,15 @@ namespace FougereGUI
             this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.newToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -140,42 +153,42 @@ namespace FougereGUI
             | System.Windows.Forms.AnchorStyles.Right)));
             this.variablesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.variablesDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.variablesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.variablesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.variablesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.variablesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
             this.Column2});
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle42.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.variablesDataGridView.DefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.variablesDataGridView.DefaultCellStyle = dataGridViewCellStyle10;
             this.variablesDataGridView.Enabled = false;
             this.variablesDataGridView.EnableHeadersVisualStyles = false;
             this.variablesDataGridView.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.variablesDataGridView.Location = new System.Drawing.Point(313, 27);
             this.variablesDataGridView.Name = "variablesDataGridView";
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle43.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle43.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.variablesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.variablesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.variablesDataGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.variablesDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.variablesDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.variablesDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.variablesDataGridView.Size = new System.Drawing.Size(356, 393);
             this.variablesDataGridView.TabIndex = 69;
@@ -208,9 +221,18 @@ namespace FougereGUI
             this.addNodeToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.addNodeToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.addNodeToolStripMenuItem.Name = "addNodeToolStripMenuItem";
-            this.addNodeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.addNodeToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.addNodeToolStripMenuItem.Text = "Add node";
             this.addNodeToolStripMenuItem.Click += new System.EventHandler(this.AddNodeToolStripMenuItem_Click);
+            // 
+            // renameAnimationToolStripMenuItem
+            // 
+            this.renameAnimationToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.renameAnimationToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.renameAnimationToolStripMenuItem.Name = "renameAnimationToolStripMenuItem";
+            this.renameAnimationToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.renameAnimationToolStripMenuItem.Text = "Rename animation";
+            this.renameAnimationToolStripMenuItem.Click += new System.EventHandler(this.RenameAnimationToolStripMenuItem_Click);
             // 
             // itemContextMenuStrip
             // 
@@ -227,7 +249,7 @@ namespace FougereGUI
             this.addFrameToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.addFrameToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.addFrameToolStripMenuItem.Name = "addFrameToolStripMenuItem";
-            this.addFrameToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.addFrameToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.addFrameToolStripMenuItem.Text = "Add frame";
             this.addFrameToolStripMenuItem.Click += new System.EventHandler(this.AddFrameToolStripMenuItem_Click);
             // 
@@ -236,7 +258,7 @@ namespace FougereGUI
             this.deleteItemToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.deleteItemToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.deleteItemToolStripMenuItem.Name = "deleteItemToolStripMenuItem";
-            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.deleteItemToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.deleteItemToolStripMenuItem.Text = "Delete item";
             this.deleteItemToolStripMenuItem.Click += new System.EventHandler(this.DeleteItemToolStripMenuItem_Click);
             // 
@@ -254,7 +276,7 @@ namespace FougereGUI
             this.deleteFrameToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.deleteFrameToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.deleteFrameToolStripMenuItem.Name = "deleteFrameToolStripMenuItem";
-            this.deleteFrameToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.deleteFrameToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.deleteFrameToolStripMenuItem.Text = "Delete frame";
             this.deleteFrameToolStripMenuItem.Click += new System.EventHandler(this.DeleteFrameToolStripMenuItem_Click);
             // 
@@ -272,27 +294,32 @@ namespace FougereGUI
             this.addItemToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.addItemToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.addItemToolStripMenuItem.Name = "addItemToolStripMenuItem";
-            this.addItemToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.addItemToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.addItemToolStripMenuItem.Text = "Add item";
             this.addItemToolStripMenuItem.Click += new System.EventHandler(this.AddItemToolStripMenuItem_Click);
             // 
-            // renameAnimationToolStripMenuItem
+            // toolsToolStripMenuItem
             // 
-            this.renameAnimationToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.renameAnimationToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.renameAnimationToolStripMenuItem.Name = "renameAnimationToolStripMenuItem";
-            this.renameAnimationToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
-            this.renameAnimationToolStripMenuItem.Text = "Rename animation";
-            this.renameAnimationToolStripMenuItem.Click += new System.EventHandler(this.RenameAnimationToolStripMenuItem_Click);
+            this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createResourceDictToolStripMenuItem});
+            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
             // 
-            // newToolStripMenuItem
+            // createResourceDictToolStripMenuItem
             // 
-            this.newToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.newToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newToolStripMenuItem.Text = "New";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
+            this.createResourceDictToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.createResourceDictToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.createResourceDictToolStripMenuItem.Name = "createResourceDictToolStripMenuItem";
+            this.createResourceDictToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.createResourceDictToolStripMenuItem.Text = "Create Resource Dict";
+            this.createResourceDictToolStripMenuItem.Click += new System.EventHandler(this.CreateResourceDictToolStripMenuItem_Click);
+            // 
+            // openFileDialog3
+            // 
+            this.openFileDialog3.FileName = "openFileDialog3";
             // 
             // FougereGUI
             // 
@@ -343,6 +370,9 @@ namespace FougereGUI
         private System.Windows.Forms.ToolStripMenuItem addItemToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem renameAnimationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createResourceDictToolStripMenuItem;
+        private System.Windows.Forms.OpenFileDialog openFileDialog3;
     }
 }
 

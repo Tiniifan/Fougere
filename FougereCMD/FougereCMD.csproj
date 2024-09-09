@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>FougereCMD</RootNamespace>
     <AssemblyName>FougereCMD</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +39,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="StudioElevenLib">
+      <HintPath>..\..\StudioElevenLib\StudioElevenLib\bin\Release\StudioElevenLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,31 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Level5\Animation\AnimationManager.cs" />
-    <Compile Include="Level5\Animation\AnimationSupport.cs" />
-    <Compile Include="Level5\Animation\Logic\BoneLocation.cs" />
-    <Compile Include="Level5\Animation\Logic\BoneRotation.cs" />
-    <Compile Include="Level5\Animation\Logic\TextureUnk.cs" />
-    <Compile Include="Level5\Animation\Logic\BoneScale.cs" />
-    <Compile Include="Level5\Animation\Logic\TextureBrightness.cs" />
-    <Compile Include="Level5\Animation\Logic\UVScale.cs" />
-    <Compile Include="Level5\Animation\Logic\UVMove.cs" />
-    <Compile Include="Level5\Compression\Compressor.cs" />
-    <Compile Include="Level5\Compression\ETC1\ETC1.cs" />
-    <Compile Include="Level5\Compression\ETC1\ETC1Decoder.cs" />
-    <Compile Include="Level5\Compression\ETC1\RGB.cs" />
-    <Compile Include="Level5\Compression\Huffman\Huffman.cs" />
-    <Compile Include="Level5\Compression\Huffman\HuffmanDecoder.cs" />
-    <Compile Include="Level5\Compression\ICompression.cs" />
-    <Compile Include="Level5\Compression\LZ10\LZ10.cs" />
-    <Compile Include="Level5\Compression\NoCompression\NoCompression.cs" />
-    <Compile Include="Level5\Compression\RLE\RLE.cs" />
-    <Compile Include="Level5\Compression\ZLib\ZLib.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\BinaryDataReader.cs" />
-    <Compile Include="Tools\BinaryDataWriter.cs" />
-    <Compile Include="Tools\Crc32.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

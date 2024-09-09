@@ -5,12 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FougereCMD.Level5.Animation;
+using StudioElevenLib.Level5.Animation;
 
 namespace FougereCMD
 {
     class Program
     {
+        private static string ToJson(AnimationManager animationManager)
+        {
+            var properties = new Dictionary<string, object>
+            {
+                {"Format", animationManager.Format},
+                {"Version", animationManager.Version},
+                {"FrameCount", animationManager.FrameCount },
+                {"AnimationName", animationManager.AnimationName},
+                {"Nodes", animationManager.Tracks}
+            };
+
+            return JsonConvert.SerializeObject(properties, Formatting.Indented);
+        }
+
         static void Main(string[] args)
         {
             if (args.Length < 1)
@@ -44,7 +58,7 @@ namespace FougereCMD
                 string outputDirectory = Path.Combine(Path.GetDirectoryName(args[2]), outputFileName);
 
                 // Convert as json
-                File.WriteAllText(outputDirectory, animationManager.ToJson());
+                File.WriteAllText(outputDirectory, ToJson(animationManager));
             }
             else if (args[0] == "-c")
             {
@@ -63,7 +77,7 @@ namespace FougereCMD
                 AnimationManager animationManager = JsonConvert.DeserializeObject<AnimationManager>(string.Join("", File.ReadAllLines(args[1])));
 
                 // Save
-                animationManager.Save(args[2]);
+                File.WriteAllBytes(args[2], animationManager.Save());
             }
         }
     }
