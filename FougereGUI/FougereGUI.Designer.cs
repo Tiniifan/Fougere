@@ -39,6 +39,8 @@ namespace FougereGUI
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createResourceDictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -56,9 +58,8 @@ namespace FougereGUI
             this.deleteFrameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.categoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createResourceDictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.variablesDataGridView)).BeginInit();
             this.rootContextMenuStrip.SuspendLayout();
@@ -97,7 +98,7 @@ namespace FougereGUI
             this.openToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.openToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -106,7 +107,7 @@ namespace FougereGUI
             this.newToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
             this.newToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -116,9 +117,29 @@ namespace FougereGUI
             this.saveToolStripMenuItem.Enabled = false;
             this.saveToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createResourceDictToolStripMenuItem,
+            this.compareToolStripMenuItem});
+            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // createResourceDictToolStripMenuItem
+            // 
+            this.createResourceDictToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.createResourceDictToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.createResourceDictToolStripMenuItem.Name = "createResourceDictToolStripMenuItem";
+            this.createResourceDictToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.createResourceDictToolStripMenuItem.Text = "Create Resource Dict";
+            this.createResourceDictToolStripMenuItem.Click += new System.EventHandler(this.CreateResourceDictToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -298,28 +319,18 @@ namespace FougereGUI
             this.addItemToolStripMenuItem.Text = "Add item";
             this.addItemToolStripMenuItem.Click += new System.EventHandler(this.AddItemToolStripMenuItem_Click);
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createResourceDictToolStripMenuItem});
-            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // createResourceDictToolStripMenuItem
-            // 
-            this.createResourceDictToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.createResourceDictToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.createResourceDictToolStripMenuItem.Name = "createResourceDictToolStripMenuItem";
-            this.createResourceDictToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.createResourceDictToolStripMenuItem.Text = "Create Resource Dict";
-            this.createResourceDictToolStripMenuItem.Click += new System.EventHandler(this.CreateResourceDictToolStripMenuItem_Click);
-            // 
             // openFileDialog3
             // 
             this.openFileDialog3.FileName = "openFileDialog3";
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.compareToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.compareToolStripMenuItem.Text = "Compare";
+            this.compareToolStripMenuItem.Click += new System.EventHandler(this.CompareToolStripMenuItem_Click);
             // 
             // FougereGUI
             // 
@@ -373,6 +384,7 @@ namespace FougereGUI
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createResourceDictToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog3;
+        private System.Windows.Forms.ToolStripMenuItem compareToolStripMenuItem;
     }
 }
 

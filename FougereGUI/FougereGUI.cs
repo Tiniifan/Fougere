@@ -96,7 +96,7 @@ namespace FougereGUI
             TreeNode property = new TreeNode("Property");
             property.Tag = "Property";
             rootNode.Nodes.Add(property);
-            
+
             foreach (Track track in AnimationManager.Tracks)
             {
                 TreeNode categoryNode = new TreeNode(track.Name);
@@ -116,7 +116,7 @@ namespace FougereGUI
                     itemNode.Tag = "Item";
                     itemNode.ContextMenuStrip = itemContextMenuStrip;
 
-                    foreach (int frame in node.Frames.Keys)
+                    foreach (int frame in node.Frames.Select(x => x.Key))
                     {
                         TreeNode frameNode = new TreeNode(frame.ToString());
                         frameNode.Tag = "Frame";
@@ -213,6 +213,39 @@ namespace FougereGUI
             }
         }
 
+        void ProcessStringRecursively(string input, char[] separators, Dictionary<string, string> dict)
+        {
+            // Si la chaîne est vide ou nulle, on retourne
+            if (string.IsNullOrEmpty(input))
+                return;
+
+            foreach (char separator in separators)
+            {
+                if (input.Contains(separator))
+                {
+                    // Split the item name by dots to get individual parts
+                    string[] parts = input.Split(separator);
+
+                    // Add each part to the dictionary
+                    foreach (string part in parts)
+                    {
+                        // Compute CRC32 for the individual part
+                        int crc32Part = unchecked((int)Crc32.Compute(Encoding.GetEncoding("Shift-JIS").GetBytes(part)));
+                        string crc32PartHex = crc32Part.ToString("X8");
+
+                        // Add the individual part to the dictionary if it doesn't already exist
+                        if (!ResourcesDict.ContainsKey(crc32PartHex))
+                        {
+                            ResourcesDict.Add(crc32PartHex, part);
+                        }
+
+                        // Appel récursif sur cette partie en utilisant les mêmes séparateurs
+                        ProcessStringRecursively(part, separators, dict);
+                    }
+                }
+            }
+        }
+
         private void CreateResourceDictToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog3.FileName = "";
@@ -231,34 +264,25 @@ namespace FougereGUI
                         continue;
                     }
 
-                    foreach (string itemName in resource.StringTable)
+                    foreach (string itemName in resource.StringTable.Keys)
                     {
-                        // Compute CRC32 for the full item name
+                        Console.WriteLine(itemName);
+
+                        // Calculer le CRC32 pour le nom complet
                         int crc32Full = unchecked((int)Crc32.Compute(Encoding.GetEncoding("Shift-JIS").GetBytes(itemName)));
                         string crc32FullHex = crc32Full.ToString("X8");
 
-                        // Add the full item name to the dictionary if it doesn't already exist
+                        // Ajouter le nom complet au dictionnaire si inexistant
                         if (!ResourcesDict.ContainsKey(crc32FullHex))
                         {
                             ResourcesDict.Add(crc32FullHex, itemName);
                         }
 
-                        // Split the item name by dots to get individual parts
-                        string[] parts = itemName.Split('.');
+                        // Définir les séparateurs à utiliser (par exemple, point et underscore)
+                        char[] separators = { '.', '_' };
 
-                        // Add each part to the dictionary
-                        foreach (string part in parts)
-                        {
-                            // Compute CRC32 for the individual part
-                            int crc32Part = unchecked((int)Crc32.Compute(Encoding.GetEncoding("Shift-JIS").GetBytes(part)));
-                            string crc32PartHex = crc32Part.ToString("X8");
-
-                            // Add the individual part to the dictionary if it doesn't already exist
-                            if (!ResourcesDict.ContainsKey(crc32PartHex))
-                            {
-                                ResourcesDict.Add(crc32PartHex, part);
-                            }
-                        }
+                        // Traiter la chaîne de manière récursive
+                        ProcessStringRecursively(itemName, separators, ResourcesDict);
                     }
                 }
 
@@ -304,7 +328,7 @@ namespace FougereGUI
                 variablesDataGridView.Rows.Add("Index", track.Index);
 
                 variablesDataGridView.Rows[0].Cells[1].ReadOnly = true;
-                variablesDataGridView.Rows[1].Cells[1].ReadOnly = true;
+                variablesDataGridView.Rows[1].Cells[1].ReadOnly = false;
 
                 int i = 0;
                 foreach (Node node in track.Nodes)
@@ -316,11 +340,13 @@ namespace FougereGUI
                         nodeName = ResourcesDict[node.Name];
                     }
 
-                    variablesDataGridView.Rows.Add($"Node {i+1}", nodeName);
+                    variablesDataGridView.Rows.Add($"Node {i + 1}", nodeName);
                     variablesDataGridView.Rows[2 + i].Cells[1].ReadOnly = true;
 
                     i++;
                 }
+
+                variablesDataGridView.Enabled = true;
             }
             else if (e.Node.Tag != null && e.Node.Tag.ToString() == "Item")
             {
@@ -340,7 +366,8 @@ namespace FougereGUI
                     variablesDataGridView.Rows[1].Cells[1].ReadOnly = true;
                     variablesDataGridView.Rows[2].Cells[1].ReadOnly = true;
                     variablesDataGridView.Rows[3].Cells[1].ReadOnly = true;
-                } else
+                }
+                else
                 {
                     variablesDataGridView.Rows.Add("Name", node.Name);
                     variablesDataGridView.Rows.Add("Main Track", Convert.ToString(node.IsInMainTrack));
@@ -359,7 +386,7 @@ namespace FougereGUI
                 int itemIndex = e.Node.Parent.Index;
                 int categoryIndex = e.Node.Parent.Parent.Index - 1;
 
-                object animationData = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames[frame];
+                object animationData = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.FirstOrDefault(x => x.Key == frame).Value;
 
                 // Use reflection to obtain the name and its value
                 foreach (PropertyInfo property in animationData.GetType().GetProperties())
@@ -373,7 +400,7 @@ namespace FougereGUI
                 }
 
                 variablesDataGridView.Enabled = true;
-            } 
+            }
             else if (e.Node.Tag != null && e.Node.Tag.ToString() == "Property")
             {
                 variablesDataGridView.Rows.Add("Version", Convert.ToInt32(AnimationManager.Version.Replace("V", "")));
@@ -418,7 +445,7 @@ namespace FougereGUI
                 int frame = Convert.ToInt32(mainTreeView.SelectedNode.Text);
                 int itemIndex = mainTreeView.SelectedNode.Parent.Index;
                 int categoryIndex = mainTreeView.SelectedNode.Parent.Parent.Index - 1;
-                object animationData = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames[frame];
+                object animationData = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames[frame].Value;
 
                 // Use reflection to obtain the variable being modified 
                 string propertyName = variablesDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
@@ -445,7 +472,8 @@ namespace FougereGUI
                     variablesDataGridView.CancelEdit();
                     variablesDataGridView.Rows[rowIndex].Cells[columnIndex].Value = property.GetValue(animationData);
                 }
-            } else if (mainTreeView.SelectedNode.Tag != null && mainTreeView.SelectedNode.Tag.ToString() == "Property")
+            }
+            else if (mainTreeView.SelectedNode.Tag != null && mainTreeView.SelectedNode.Tag.ToString() == "Property")
             {
                 // Retrieve information about the modified cell
                 int rowIndex = e.RowIndex;
@@ -459,12 +487,14 @@ namespace FougereGUI
                     if (modifiedValue == "XMTN" || modifiedValue == "XIMA" || modifiedValue == "XMTM")
                     {
                         AnimationManager.Format = modifiedValue;
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("Format should be XMTN or XIMA or XMTM");
                         variablesDataGridView.Rows[1].Cells[1].Value = AnimationManager.Format;
                     }
-                } else
+                }
+                else
                 {
                     try
                     {
@@ -508,6 +538,30 @@ namespace FougereGUI
                     }
                 }
             }
+            else if (mainTreeView.SelectedNode.Tag != null && mainTreeView.SelectedNode.Tag.ToString() == "Category")
+            {
+                int rowIndex = e.RowIndex;
+                int columnIndex = e.ColumnIndex;
+
+                if (rowIndex == 1)
+                {
+                    string modifiedValue = variablesDataGridView.Rows[rowIndex].Cells[columnIndex].Value.ToString();
+                    try
+                    {
+                        int categoryIndex = mainTreeView.SelectedNode.Index - 1;
+                        Track track = AnimationManager.Tracks[categoryIndex];
+                        int newIndex = Convert.ToInt32(modifiedValue);
+                        track.Index = newIndex;
+                    }
+                    catch
+                    {
+                        variablesDataGridView.CancelEdit();
+                        int categoryIndex = mainTreeView.SelectedNode.Index - 1;
+                        Track track = AnimationManager.Tracks[categoryIndex];
+                        variablesDataGridView.Rows[rowIndex].Cells[columnIndex].Value = track.Index;
+                    }
+                }
+            }
         }
 
         private void DeleteFrameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -520,7 +574,14 @@ namespace FougereGUI
                 int categoryIndex = SelectedRightClickTreeNode.Parent.Parent.Index - 1;
 
                 // Remove frame
-                AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.Remove(frame);
+                Node node = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex];
+                Frame frameToRemove = node.Frames.FirstOrDefault(x => x.Key == frame);
+
+                if (frameToRemove != null)
+                {
+                    node.Frames.Remove(frameToRemove);
+                }
+
                 SelectedRightClickTreeNode.Remove();
             }
 
@@ -545,7 +606,8 @@ namespace FougereGUI
                     if (frameNumber < 0)
                     {
                         MessageBox.Show("Please enter a value greater than or equal to 0");
-                    } else
+                    }
+                    else
                     {
                         // Get frameIndex
                         int frameIndex = SelectedRightClickTreeNode.Nodes
@@ -564,20 +626,18 @@ namespace FougereGUI
                         else
                         {
                             string category = SelectedRightClickTreeNode.Parent.Text;
-                            AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.Add(frameNumber, Activator.CreateInstance(Type.GetType("StudioElevenLib.Level5.Animation.Logic." + category + ", StudioElevenLib")));
+                            AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.Add(new Frame(frameNumber, Activator.CreateInstance(Type.GetType("StudioElevenLib.Level5.Animation.Logic." + category + ", StudioElevenLib"))));
 
-                            // The frame has been added, you need to sort the frames
-                            Dictionary<int, object> tempFrameDict = new Dictionary<int, object>(AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames);
-                            int[] sortedFrameIndexes = tempFrameDict.Keys.OrderBy(key => key).ToArray();
-                            Console.WriteLine("3");
+                            // Sort frame by key
+                            List<Frame> frames = new List<Frame>(AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames);
+                            AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames = frames.OrderBy(frame => frame.Key).ToList();
 
-                            // Clear
-                            AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.Clear();
+                            // Clear frame nodes
                             SelectedRightClickTreeNode.Nodes.Clear();
 
                             TreeNode newSelectedNode = null;
 
-                            foreach (int frame in sortedFrameIndexes)
+                            foreach (int frame in frames.Select(x => x.Key))
                             {
                                 // Add frames back to the tree view
                                 TreeNode newFrame = new TreeNode(frame.ToString());
@@ -589,16 +649,14 @@ namespace FougereGUI
                                 {
                                     newSelectedNode = newFrame;
                                 }
-
-                                // Add frames back to the node
-                                AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.Add(frame, tempFrameDict[frame]);                   
                             }
 
                             // Select the added frame
                             mainTreeView.SelectedNode = newSelectedNode;
                         }
                     }
-                } catch
+                }
+                catch
                 {
                     MessageBox.Show("Please enter numeric value");
                 }
@@ -645,7 +703,8 @@ namespace FougereGUI
                     {
                         itemName = Crc32.Compute(Encoding.GetEncoding(932).GetBytes(itemName)).ToString("X8");
                     }
-                } else
+                }
+                else
                 {
                     itemName = Crc32.Compute(Encoding.GetEncoding(932).GetBytes(itemName)).ToString("X8");
                 }
@@ -677,7 +736,8 @@ namespace FougereGUI
                 if (AnimationManager.Tracks.Count > 4)
                 {
                     MessageBox.Show("Cannot add more than 4 tracks");
-                } else
+                }
+                else
                 {
                     InputComboBoxWindow inputComboBoxWindow = new InputComboBoxWindow("Select Type", AnimationSupport.TrackDataCount.Keys.ToArray());
 
@@ -715,6 +775,22 @@ namespace FougereGUI
 
             // Reset
             SelectedRightClickTreeNode = null;
+        }
+
+        private void CompareToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CompareGUI compareGUI = null;
+
+            if (AnimationManager != null)
+            {
+                compareGUI = new CompareGUI(openFileDialog1.FileName);
+            }
+            else
+            {
+                compareGUI = new CompareGUI(openFileDialog1.FileName);
+            }
+
+            compareGUI.ShowDialog();
         }
     }
 }
