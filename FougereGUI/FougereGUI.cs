@@ -445,7 +445,11 @@ namespace FougereGUI
                 int frame = Convert.ToInt32(mainTreeView.SelectedNode.Text);
                 int itemIndex = mainTreeView.SelectedNode.Parent.Index;
                 int categoryIndex = mainTreeView.SelectedNode.Parent.Parent.Index - 1;
-                object animationData = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames[frame].Value;
+
+                // Get target frame
+                var targetFrame = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex].Frames.FirstOrDefault(x => x.Key == frame);
+                if (targetFrame == null) return;
+                object animationData = targetFrame.Value;
 
                 // Use reflection to obtain the variable being modified 
                 string propertyName = variablesDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
