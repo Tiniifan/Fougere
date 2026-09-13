@@ -12,11 +12,11 @@ namespace Fougere
         /// Point d'entrée principal de l'application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Fougere());
+            Application.Run(new Fougere(args.Length > 0 ? args[0] : null));
         }
     }
 }

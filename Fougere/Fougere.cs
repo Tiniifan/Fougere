@@ -48,6 +48,34 @@ namespace Fougere
             }
         }
 
+        public Fougere(string filePathToOpen) : this()
+        {
+            if (IsSupportedAnimationFile(filePathToOpen))
+            {
+                try
+                {
+                    OpenFile(filePathToOpen);
+                }
+                catch
+                {
+                    // Ignore invalid file
+                }
+            }
+        }
+
+        private static readonly string[] SupportedExtensions = { ".mtn2", ".imm2", ".mtm2", ".json" };
+
+        private static bool IsSupportedAnimationFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName))
+            {
+                return false;
+            }
+
+            string ext = Path.GetExtension(fileName);
+            return SupportedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase);
+        }
+
         private IResource TryOpenResource(string fileName)
         {
             try
@@ -334,10 +362,9 @@ namespace Fougere
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             string dragPath = Path.GetFullPath(files[0]);
-            string dragExt = Path.GetExtension(files[0]);
 
             if (files.Length > 1) return;
-            if (dragExt != ".mtn2" & dragExt != ".imm2" & dragExt != ".mtm2" & dragExt != ".json") return;
+            if (!IsSupportedAnimationFile(dragPath)) return;
 
             openFileDialog1.FileName = dragPath;
             OpenFile(openFileDialog1.FileName);
