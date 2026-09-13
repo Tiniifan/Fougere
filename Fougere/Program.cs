@@ -54,7 +54,7 @@ namespace Fougere
 
         private static void PrintHelp()
         {
-            Console.WriteLine("Fougere - Level-5 animation editor (.mtn2, .imm2, .mtm2)");
+            Console.WriteLine("Fougere - Level-5 animation editor (.mtn2, .imm2, .mtm2, .mtn3, .imm3, .mtm3)");
             Console.WriteLine();
             Console.WriteLine("Usage:");
             Console.WriteLine("  Fougere                                            Launch the GUI");
@@ -65,6 +65,7 @@ namespace Fougere
             Console.WriteLine("  Fougere --help|-h                                  Show this help message");
             Console.WriteLine();
             Console.WriteLine("If --output is omitted, the result is saved next to the input file with the correct extension.");
+            Console.WriteLine("With --toanimation, a .mtn3/.imm3/.mtm3 output is saved as V3 and a .mtn2/.imm2/.mtm2 output of a V3 animation is saved as V2.");
             Console.WriteLine();
             Console.WriteLine("Examples:");
             Console.WriteLine("  Fougere 000.mtn2");
@@ -72,6 +73,7 @@ namespace Fougere
             Console.WriteLine("  Fougere -tj 000.mtn2 --output result.json");
             Console.WriteLine("  Fougere --toanimation 000.json");
             Console.WriteLine("  Fougere -ta 000.json --output 000.mtn2");
+            Console.WriteLine("  Fougere -ta 000.json --output 000.mtn3");
         }
 
         private static void RunConversion(string[] args, bool toJson)
@@ -120,9 +122,10 @@ namespace Fougere
 
                     if (outputPath == null)
                     {
-                        outputPath = Path.ChangeExtension(inputPath, AnimationConverter.GetAnimationExtension(animationManager.Format));
+                        outputPath = Path.ChangeExtension(inputPath, AnimationConverter.GetAnimationExtension(animationManager.Format, animationManager.Version));
                     }
 
+                    animationManager = AnimationConverter.ConvertAnimationForExtension(animationManager, outputPath);
                     File.WriteAllBytes(outputPath, animationManager.Save());
                 }
 

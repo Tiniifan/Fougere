@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StudioElevenLib.Level5.Animation;
@@ -88,15 +89,61 @@ namespace Fougere
             return JsonConvert.SerializeObject(properties, Formatting.Indented);
         }
 
-        public static string GetAnimationExtension(string format)
+        // V1 and V2 animations both use the "2" extensions (.mtn2, .imm2, .mtm2), V3 animations use the "3" extensions
+        public static string GetAnimationExtension(string format, string version)
         {
+            string suffix = version == "V3" ? "3" : "2";
+
             switch (format)
             {
-                case "XMTN": return ".mtn2";
-                case "XIMA": return ".imm2";
-                case "XMTM": return ".mtm2";
+                case "XMTN": return ".mtn" + suffix;
+                case "XIMA": return ".imm" + suffix;
+                case "XMTM": return ".mtm" + suffix;
                 default: throw new ArgumentException("Unknown animation format: " + format);
             }
+        }
+
+        public static IAnimationManager ConvertAnimation(IAnimationManager animationManager, string version)
+        {
+            if (animationManager.Version == version)
+            {
+                return animationManager;
+            }
+
+            IAnimationManager newAnimationManager = Animator.CreateAnimation(version);
+            newAnimationManager.Format = animationManager.Format;
+            newAnimationManager.AnimationName = animationManager.AnimationName;
+            newAnimationManager.FrameCount = animationManager.FrameCount;
+
+            if (version == "V3")
+            {
+                newAnimationManager.Tracks = animationManager.Tracks;
+            }
+            else
+            {
+                // V1 and V2 write the tracks by position, V3 can leave empty track slots so the indexes are packed
+                newAnimationManager.Tracks = animationManager.Tracks.Select((track, index) => new Track(track.Name, index, track.Nodes)).ToList();
+            }
+
+            return newAnimationManager;
+        }
+
+        // Saving to a "3" extension converts the animation to V3, saving a V3 animation to a "2" extension converts it to V2
+        public static IAnimationManager ConvertAnimationForExtension(IAnimationManager animationManager, string filePath)
+        {
+            string extension = Path.GetExtension(filePath);
+
+            if (extension.EndsWith("3") && animationManager.Version != "V3")
+            {
+                return ConvertAnimation(animationManager, "V3");
+            }
+
+            if (extension.EndsWith("2") && animationManager.Version == "V3")
+            {
+                return ConvertAnimation(animationManager, "V2");
+            }
+
+            return animationManager;
         }
     }
 }

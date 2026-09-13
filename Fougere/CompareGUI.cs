@@ -149,7 +149,7 @@ namespace Fougere
         private void OpenButton1_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2)|*.mtn2;*.imm2;*.mtm2|JSON files (*.json)|*.json";
+            openFileDialog1.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3)|*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3|JSON files (*.json)|*.json";
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -161,7 +161,7 @@ namespace Fougere
         private void OpenButton2_Click(object sender, EventArgs e)
         {
             openFileDialog2.FileName = "";
-            openFileDialog2.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2)|*.mtn2;*.imm2;*.mtm2|JSON files (*.json)|*.json";
+            openFileDialog2.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3)|*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3|JSON files (*.json)|*.json";
             openFileDialog2.RestoreDirectory = true;
 
             if (openFileDialog2.ShowDialog() == DialogResult.OK)
@@ -172,8 +172,8 @@ namespace Fougere
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            IAnimationManager animationManager1 = Animator.GetAnimation(File.ReadAllBytes(openFileDialog1.FileName));
-            IAnimationManager animationManager2 = Animator.GetAnimation(File.ReadAllBytes(openFileDialog2.FileName));
+            IAnimationManager animationManager1 = AnimationConverter.LoadAnimation(openFileDialog1.FileName);
+            IAnimationManager animationManager2 = AnimationConverter.LoadAnimation(openFileDialog2.FileName);
             outputTextBox.Text = CompareAndPrintDifferences(animationManager1, animationManager2);
         }
     }

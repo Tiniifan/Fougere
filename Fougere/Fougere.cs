@@ -63,7 +63,7 @@ namespace Fougere
             }
         }
 
-        private static readonly string[] SupportedExtensions = { ".mtn2", ".imm2", ".mtm2", ".json" };
+        private static readonly string[] SupportedExtensions = { ".mtn2", ".imm2", ".mtm2", ".mtn3", ".imm3", ".mtm3", ".json" };
 
         private static bool IsSupportedAnimationFile(string fileName)
         {
@@ -168,7 +168,7 @@ namespace Fougere
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = "";
-            openFileDialog1.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2)|*.mtn2;*.imm2;*.mtm2|JSON files (*.json)|*.json";
+            openFileDialog1.Filter = "Level 5 Animation files (*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3)|*.mtn2;*.imm2;*.mtm2;*.mtn3;*.imm3;*.mtm3|JSON files (*.json)|*.json";
             openFileDialog1.RestoreDirectory = true;
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -192,20 +192,24 @@ namespace Fougere
 
         private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.Filter = "Level 5 Bone Animation files (*.mtn2)|*.mtn2|Level 5 UV Animation files (*.imm2)|*.imm2|Level 5 Texture Animation files (*.mtm2)|*.mtm2|JSON files (*.json)|*.json";
+            saveFileDialog1.Filter = "Level 5 Bone Animation files (*.mtn2)|*.mtn2|Level 5 UV Animation files (*.imm2)|*.imm2|Level 5 Texture Animation files (*.mtm2)|*.mtm2|" +
+                "Level 5 Bone Animation V3 files (*.mtn3)|*.mtn3|Level 5 UV Animation V3 files (*.imm3)|*.imm3|Level 5 Texture Animation V3 files (*.mtm3)|*.mtm3|JSON files (*.json)|*.json";
             saveFileDialog1.InitialDirectory = Path.GetDirectoryName(openFileDialog1.FileName);
             saveFileDialog1.RestoreDirectory = true;
+
+            // V3 filters are placed after the V1/V2 filters
+            int filterOffset = AnimationManager.Version == "V3" ? 3 : 0;
 
             switch (AnimationManager.Format)
             {
                 case "XMTN":
-                    saveFileDialog1.FilterIndex = 1;
+                    saveFileDialog1.FilterIndex = 1 + filterOffset;
                     break;
                 case "XIMA":
-                    saveFileDialog1.FilterIndex = 2;
+                    saveFileDialog1.FilterIndex = 2 + filterOffset;
                     break;
                 case "XMTM":
-                    saveFileDialog1.FilterIndex = 3;
+                    saveFileDialog1.FilterIndex = 3 + filterOffset;
                     break;
             }
 
@@ -219,7 +223,8 @@ namespace Fougere
                 }
                 else
                 {
-                    File.WriteAllBytes(fileName, AnimationManager.Save());
+                    // The extension decides if the animation is saved as V3 or not
+                    File.WriteAllBytes(fileName, AnimationConverter.ConvertAnimationForExtension(AnimationManager, fileName).Save());
                 }
 
                 MessageBox.Show(Path.GetFileName(fileName) + " saved!");
@@ -548,18 +553,13 @@ namespace Fougere
 
                         if (rowIndex == 0)
                         {
-                            if (newValue != 1 && newValue != 2)
+                            if (newValue < 1 || newValue > 3)
                             {
-                                MessageBox.Show("Version should be 1 or 2");
-                                throw new ArgumentException("Version should be 1 or 2");
+                                MessageBox.Show("Version should be 1, 2 or 3");
+                                throw new ArgumentException("Version should be 1, 2 or 3");
                             }
 
-                            IAnimationManager newAnimationManager = Animator.CreateAnimation("V" + newValue);
-                            newAnimationManager.Format = AnimationManager.Format;
-                            newAnimationManager.AnimationName = AnimationManager.AnimationName;
-                            newAnimationManager.FrameCount = AnimationManager.FrameCount;
-                            newAnimationManager.Tracks = AnimationManager.Tracks;
-                            AnimationManager = newAnimationManager;
+                            AnimationManager = AnimationConverter.ConvertAnimation(AnimationManager, "V" + newValue);
                         }
                         else if (rowIndex == 2)
                         {
@@ -783,7 +783,13 @@ namespace Fougere
         {
             if (SelectedRightClickTreeNode != null)
             {
-                if (AnimationManager.Tracks.Count > 4)
+                // Find the first free track slot, V3 animations can have empty slots between tracks
+                int trackIndex = Enumerable.Range(0, 4)
+                    .Where(x => !AnimationManager.Tracks.Any(track => track.Index == x) && !(AnimationManager.Tracks.Count > x && AnimationManager.Tracks[x].Index == -1))
+                    .DefaultIfEmpty(-1)
+                    .First();
+
+                if (trackIndex == -1)
                 {
                     MessageBox.Show("Cannot add more than 4 tracks");
                 }
@@ -796,7 +802,7 @@ namespace Fougere
                         string selectedType = inputComboBoxWindow.SelectedItem;
 
                         // Add selected track
-                        AnimationManager.Tracks.Add(new Track(selectedType));
+                        AnimationManager.Tracks.Add(new Track(selectedType, trackIndex));
 
                         // Create new track
                         TreeNode categoryNode = new TreeNode(selectedType);
