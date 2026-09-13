@@ -102,16 +102,7 @@ namespace Fougere
 
         public string ToJson()
         {
-            var properties = new Dictionary<string, object>
-            {
-                {"Format", AnimationManager.Format},
-                {"Version", AnimationManager.Version},
-                {"FrameCount", AnimationManager.FrameCount },
-                {"AnimationName", AnimationManager.AnimationName},
-                {"Nodes", AnimationManager.Tracks}
-            };
-
-            return JsonConvert.SerializeObject(properties, Formatting.Indented);
+            return AnimationConverter.ToJsonString(AnimationManager);
         }
 
         private void DrawTreeView()
@@ -168,14 +159,7 @@ namespace Fougere
         {
             TryLoadResBin(fileName);
 
-            if (Path.GetExtension(fileName).Equals(".json", StringComparison.OrdinalIgnoreCase))
-            {
-                AnimationManager = JsonConvert.DeserializeObject<AnimationManager>(string.Join("", File.ReadAllLines(fileName)));
-            }
-            else
-            {
-                AnimationManager = new AnimationManager(new FileStream(fileName, FileMode.Open, FileAccess.Read));
-            }
+            AnimationManager = AnimationConverter.LoadAnimation(fileName);
 
             DrawTreeView();
             saveToolStripMenuItem.Enabled = true;
