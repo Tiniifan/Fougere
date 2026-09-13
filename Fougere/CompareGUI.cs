@@ -18,7 +18,7 @@ using StudioElevenLib.Level5.Resource;
 using StudioElevenLib.Level5.Resource.RES;
 using StudioElevenLib.Level5.Resource.XRES;
 
-namespace FougereGUI
+namespace Fougere
 {
     public partial class CompareGUI : Form
     {

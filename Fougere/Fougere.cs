@@ -18,9 +18,9 @@ using StudioElevenLib.Level5.Resource;
 using StudioElevenLib.Level5.Resource.RES;
 using StudioElevenLib.Level5.Resource.XRES;
 
-namespace FougereGUI
+namespace Fougere
 {
-    public partial class FougereGUI : Form
+    public partial class Fougere : Form
     {
         private AnimationManager AnimationManager;
 
@@ -28,7 +28,7 @@ namespace FougereGUI
 
         private Dictionary<string, string> ResourcesDict;
 
-        public FougereGUI()
+        public Fougere()
         {
             InitializeComponent();
 
@@ -294,7 +294,7 @@ namespace FougereGUI
             }
         }
 
-        private void FougereGUI_DragDrop(object sender, DragEventArgs e)
+        private void Fougere_DragDrop(object sender, DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
             string dragPath = Path.GetFullPath(files[0]);
@@ -307,7 +307,7 @@ namespace FougereGUI
             OpenFile(openFileDialog1.FileName);
         }
 
-        private void FougereGUI_DragEnter(object sender, DragEventArgs e)
+        private void Fougere_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
         }

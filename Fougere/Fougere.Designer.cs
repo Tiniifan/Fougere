@@ -1,7 +1,7 @@
 ﻿
-namespace FougereGUI
+namespace Fougere
 {
-    partial class FougereGUI
+    partial class Fougere
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -332,7 +332,7 @@ namespace FougereGUI
             this.compareToolStripMenuItem.Text = "Compare";
             this.compareToolStripMenuItem.Click += new System.EventHandler(this.CompareToolStripMenuItem_Click);
             // 
-            // FougereGUI
+            // Fougere
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,10 +342,10 @@ namespace FougereGUI
             this.Controls.Add(this.variablesDataGridView);
             this.Controls.Add(this.mainTreeView);
             this.Controls.Add(this.menuStrip1);
-            this.Name = "FougereGUI";
+            this.Name = "Fougere";
             this.Text = "Fougere";
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.FougereGUI_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.FougereGUI_DragEnter);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Fougere_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Fougere_DragEnter);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.variablesDataGridView)).EndInit();

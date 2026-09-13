@@ -1,7 +1,7 @@
 
 .vs/
-FougereGUI/bin/Release/FougereGUI.zip
-FougereGUI/obj/
+Fougere/bin/Release/Fougere.zip
+Fougere/obj/
 *.mtm2
 *.cmr2
 *.mtn2
@@ -12,4 +12,3 @@ FougereGUI/obj/
 *.xc
 *.pck
 Fougere.zip
-FougereGUI.zip

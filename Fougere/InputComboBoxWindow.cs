@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FougereGUI
+namespace Fougere
 {
     public partial class InputComboBoxWindow : Form
     {

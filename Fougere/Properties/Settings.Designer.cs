@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FougereGUI.Properties {
+namespace Fougere.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

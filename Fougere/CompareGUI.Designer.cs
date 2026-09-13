@@ -1,5 +1,5 @@
 ﻿
-namespace FougereGUI
+namespace Fougere
 {
     partial class CompareGUI
     {
