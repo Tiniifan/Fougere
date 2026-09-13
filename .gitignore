@@ -12,3 +12,4 @@ Fougere/obj/
 *.xc
 *.pck
 Fougere.zip
+/Fougere/bin/Debug/test

@@ -22,7 +22,7 @@ namespace Fougere
 {
     public partial class Fougere : Form
     {
-        private AnimationManager AnimationManager;
+        private IAnimationManager AnimationManager;
 
         private TreeNode SelectedRightClickTreeNode;
 
@@ -181,10 +181,9 @@ namespace Fougere
         {
             string frameString = Interaction.InputBox("Enter name:");
 
-            AnimationManager = new AnimationManager();
+            AnimationManager = new AnimationManagerV2();
             AnimationManager.AnimationName = frameString;
             AnimationManager.FrameCount = 0;
-            AnimationManager.Version = "V2";
             AnimationManager.Format = "XIMA";
 
             DrawTreeView();
@@ -555,7 +554,12 @@ namespace Fougere
                                 throw new ArgumentException("Version should be 1 or 2");
                             }
 
-                            AnimationManager.Version = "V" + newValue;
+                            IAnimationManager newAnimationManager = Animator.CreateAnimation("V" + newValue);
+                            newAnimationManager.Format = AnimationManager.Format;
+                            newAnimationManager.AnimationName = AnimationManager.AnimationName;
+                            newAnimationManager.FrameCount = AnimationManager.FrameCount;
+                            newAnimationManager.Tracks = AnimationManager.Tracks;
+                            AnimationManager = newAnimationManager;
                         }
                         else if (rowIndex == 2)
                         {

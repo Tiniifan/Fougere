@@ -10,27 +10,24 @@ namespace Fougere
 {
     internal static class AnimationConverter
     {
-        public static AnimationManager LoadAnimation(string filePath)
+        public static IAnimationManager LoadAnimation(string filePath)
         {
             if (Path.GetExtension(filePath).Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
                 return LoadAnimationFromJson(filePath);
             }
 
-            return new AnimationManager(new FileStream(filePath, FileMode.Open, FileAccess.Read));
+            return Animator.GetAnimation(File.ReadAllBytes(filePath));
         }
 
-        public static AnimationManager LoadAnimationFromJson(string filePath)
+        public static IAnimationManager LoadAnimationFromJson(string filePath)
         {
             JObject root = JObject.Parse(File.ReadAllText(filePath));
 
-            AnimationManager animationManager = new AnimationManager
-            {
-                Format = (string)root["Format"],
-                Version = (string)root["Version"],
-                FrameCount = (int)root["FrameCount"],
-                AnimationName = (string)root["AnimationName"]
-            };
+            IAnimationManager animationManager = Animator.CreateAnimation((string)root["Version"]);
+            animationManager.Format = (string)root["Format"];
+            animationManager.FrameCount = (int)root["FrameCount"];
+            animationManager.AnimationName = (string)root["AnimationName"];
 
             foreach (JObject trackObject in root["Tracks"] ?? new JArray())
             {
@@ -77,7 +74,7 @@ namespace Fougere
             return new Node(name, isInMainTrack, frames);
         }
 
-        public static string ToJsonString(AnimationManager animationManager)
+        public static string ToJsonString(IAnimationManager animationManager)
         {
             var properties = new Dictionary<string, object>
             {

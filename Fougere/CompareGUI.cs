@@ -34,7 +34,7 @@ namespace Fougere
             }
         }
 
-        public string CompareAndPrintDifferences(AnimationManager manager1, AnimationManager manager2)
+        public string CompareAndPrintDifferences(IAnimationManager manager1, IAnimationManager manager2)
         {
             var differences = new StringBuilder();
 
@@ -172,8 +172,8 @@ namespace Fougere
 
         private void RunButton_Click(object sender, EventArgs e)
         {
-            AnimationManager animationManager1 = new AnimationManager(new FileStream(openFileDialog1.FileName, FileMode.Open, FileAccess.Read));
-            AnimationManager animationManager2 = new AnimationManager(new FileStream(openFileDialog2.FileName, FileMode.Open, FileAccess.Read));
+            IAnimationManager animationManager1 = Animator.GetAnimation(File.ReadAllBytes(openFileDialog1.FileName));
+            IAnimationManager animationManager2 = Animator.GetAnimation(File.ReadAllBytes(openFileDialog2.FileName));
             outputTextBox.Text = CompareAndPrintDifferences(animationManager1, animationManager2);
         }
     }

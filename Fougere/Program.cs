@@ -105,7 +105,7 @@ namespace Fougere
             {
                 if (toJson)
                 {
-                    AnimationManager animationManager = AnimationConverter.LoadAnimation(inputPath);
+                    IAnimationManager animationManager = AnimationConverter.LoadAnimation(inputPath);
 
                     if (outputPath == null)
                     {
@@ -116,7 +116,7 @@ namespace Fougere
                 }
                 else
                 {
-                    AnimationManager animationManager = AnimationConverter.LoadAnimationFromJson(inputPath);
+                    IAnimationManager animationManager = AnimationConverter.LoadAnimationFromJson(inputPath);
 
                     if (outputPath == null)
                     {
