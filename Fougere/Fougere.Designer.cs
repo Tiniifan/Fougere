@@ -30,10 +30,10 @@ namespace Fougere
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +41,7 @@ namespace Fougere
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createResourceDictToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -48,6 +49,7 @@ namespace Fougere
             this.variablesDataGridView = new System.Windows.Forms.DataGridView();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnHex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rootContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameAnimationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +61,6 @@ namespace Fougere
             this.categoryContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog3 = new System.Windows.Forms.OpenFileDialog();
-            this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.variablesDataGridView)).BeginInit();
             this.rootContextMenuStrip.SuspendLayout();
@@ -76,7 +77,7 @@ namespace Fougere
             this.toolsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(680, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(834, 24);
             this.menuStrip1.TabIndex = 67;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -129,7 +130,7 @@ namespace Fougere
             this.compareToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // createResourceDictToolStripMenuItem
@@ -140,6 +141,15 @@ namespace Fougere
             this.createResourceDictToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.createResourceDictToolStripMenuItem.Text = "Create Resource Dict";
             this.createResourceDictToolStripMenuItem.Click += new System.EventHandler(this.CreateResourceDictToolStripMenuItem_Click);
+            // 
+            // compareToolStripMenuItem
+            // 
+            this.compareToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
+            this.compareToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
+            this.compareToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.compareToolStripMenuItem.Text = "Compare";
+            this.compareToolStripMenuItem.Click += new System.EventHandler(this.CompareToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -160,7 +170,7 @@ namespace Fougere
             this.mainTreeView.LineColor = System.Drawing.Color.White;
             this.mainTreeView.Location = new System.Drawing.Point(12, 27);
             this.mainTreeView.Name = "mainTreeView";
-            this.mainTreeView.Size = new System.Drawing.Size(295, 393);
+            this.mainTreeView.Size = new System.Drawing.Size(295, 486);
             this.mainTreeView.TabIndex = 68;
             this.mainTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.MainTreeView_AfterSelect);
             this.mainTreeView.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.MainTreeView_NodeMouseClick);
@@ -174,44 +184,45 @@ namespace Fougere
             | System.Windows.Forms.AnchorStyles.Right)));
             this.variablesDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.variablesDataGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.variablesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.variablesDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.variablesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.variablesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
-            this.Column2});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.variablesDataGridView.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Column2,
+            this.ColumnHex});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.variablesDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             this.variablesDataGridView.Enabled = false;
             this.variablesDataGridView.EnableHeadersVisualStyles = false;
             this.variablesDataGridView.GridColor = System.Drawing.SystemColors.ControlDarkDark;
             this.variablesDataGridView.Location = new System.Drawing.Point(313, 27);
             this.variablesDataGridView.Name = "variablesDataGridView";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.variablesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Leelawadee UI", 8.25F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.variablesDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.variablesDataGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.variablesDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.variablesDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.variablesDataGridView.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.variablesDataGridView.Size = new System.Drawing.Size(356, 393);
+            this.variablesDataGridView.Size = new System.Drawing.Size(510, 486);
             this.variablesDataGridView.TabIndex = 69;
             this.variablesDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.VariablesDataGridView_CellEndEdit);
             // 
@@ -226,6 +237,12 @@ namespace Fougere
             this.Column2.HeaderText = "Value";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
+            // 
+            // ColumnHex
+            // 
+            this.ColumnHex.HeaderText = "Hex";
+            this.ColumnHex.Name = "ColumnHex";
+            this.ColumnHex.ReadOnly = true;
             // 
             // rootContextMenuStrip
             // 
@@ -323,22 +340,13 @@ namespace Fougere
             // 
             this.openFileDialog3.FileName = "openFileDialog3";
             // 
-            // compareToolStripMenuItem
-            // 
-            this.compareToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.compareToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.compareToolStripMenuItem.Name = "compareToolStripMenuItem";
-            this.compareToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.compareToolStripMenuItem.Text = "Compare";
-            this.compareToolStripMenuItem.Click += new System.EventHandler(this.CompareToolStripMenuItem_Click);
-            // 
             // Fougere
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(54)))), ((int)(((byte)(54)))));
-            this.ClientSize = new System.Drawing.Size(680, 428);
+            this.ClientSize = new System.Drawing.Size(834, 521);
             this.Controls.Add(this.variablesDataGridView);
             this.Controls.Add(this.mainTreeView);
             this.Controls.Add(this.menuStrip1);
@@ -370,6 +378,7 @@ namespace Fougere
         public System.Windows.Forms.DataGridView variablesDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnHex;
         private System.Windows.Forms.ContextMenuStrip rootContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem addNodeToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip itemContextMenuStrip;

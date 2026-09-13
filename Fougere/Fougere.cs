@@ -138,6 +138,8 @@ namespace Fougere
 
         private void OpenFile(string fileName)
         {
+            TryLoadResBin(fileName);
+
             if (Path.GetExtension(fileName).Equals(".json", StringComparison.OrdinalIgnoreCase))
             {
                 AnimationManager = JsonConvert.DeserializeObject<AnimationManager>(string.Join("", File.ReadAllLines(fileName)));
@@ -246,6 +248,61 @@ namespace Fougere
             }
         }
 
+        private void LoadResourceNames(IResource resource)
+        {
+            foreach (string itemName in resource.StringTable.Keys)
+            {
+                // Calculer le CRC32 pour le nom complet
+                int crc32Full = unchecked((int)Crc32.Compute(Encoding.GetEncoding("Shift-JIS").GetBytes(itemName)));
+                string crc32FullHex = crc32Full.ToString("X8");
+
+                // Ajouter le nom complet au dictionnaire si inexistant
+                if (!ResourcesDict.ContainsKey(crc32FullHex))
+                {
+                    ResourcesDict.Add(crc32FullHex, itemName);
+                }
+
+                // Définir les séparateurs à utiliser (par exemple, point et underscore)
+                char[] separators = { '.', '_' };
+
+                // Traiter la chaîne de manière récursive
+                ProcessStringRecursively(itemName, separators, ResourcesDict);
+            }
+        }
+
+        private void SaveResourcesDict()
+        {
+            string jsonString = JsonConvert.SerializeObject(ResourcesDict, Formatting.Indented);
+            File.WriteAllText("ResourcesDict.json", jsonString);
+        }
+
+        private void TryLoadResBin(string fileName)
+        {
+            string directory = Path.GetDirectoryName(fileName);
+
+            if (string.IsNullOrEmpty(directory))
+            {
+                return;
+            }
+
+            string resBinPath = Path.Combine(directory, "RES.BIN");
+
+            if (!File.Exists(resBinPath))
+            {
+                return;
+            }
+
+            IResource resource = TryOpenResource(resBinPath) ?? TryOpenXResource(resBinPath);
+
+            if (resource == null)
+            {
+                return;
+            }
+
+            LoadResourceNames(resource);
+            SaveResourcesDict();
+        }
+
         private void CreateResourceDictToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog3.FileName = "";
@@ -264,31 +321,10 @@ namespace Fougere
                         continue;
                     }
 
-                    foreach (string itemName in resource.StringTable.Keys)
-                    {
-                        Console.WriteLine(itemName);
-
-                        // Calculer le CRC32 pour le nom complet
-                        int crc32Full = unchecked((int)Crc32.Compute(Encoding.GetEncoding("Shift-JIS").GetBytes(itemName)));
-                        string crc32FullHex = crc32Full.ToString("X8");
-
-                        // Ajouter le nom complet au dictionnaire si inexistant
-                        if (!ResourcesDict.ContainsKey(crc32FullHex))
-                        {
-                            ResourcesDict.Add(crc32FullHex, itemName);
-                        }
-
-                        // Définir les séparateurs à utiliser (par exemple, point et underscore)
-                        char[] separators = { '.', '_' };
-
-                        // Traiter la chaîne de manière récursive
-                        ProcessStringRecursively(itemName, separators, ResourcesDict);
-                    }
+                    LoadResourceNames(resource);
                 }
 
-                // Serialize the dictionary to JSON and save to a file
-                string jsonString = JsonConvert.SerializeObject(ResourcesDict, Formatting.Indented);
-                File.WriteAllText("ResourcesDict.json", jsonString);
+                SaveResourcesDict();
 
                 MessageBox.Show("ResourceDict.json updated!");
             }
@@ -334,13 +370,14 @@ namespace Fougere
                 foreach (Node node in track.Nodes)
                 {
                     string nodeName = node.Name;
+                    string nodeHex = node.Name;
 
-                    if (ResourcesDict != null & ResourcesDict.ContainsKey(node.Name))
+                    if (ResourcesDict != null && ResourcesDict.ContainsKey(node.Name))
                     {
                         nodeName = ResourcesDict[node.Name];
                     }
 
-                    variablesDataGridView.Rows.Add($"Node {i + 1}", nodeName);
+                    variablesDataGridView.Rows.Add($"Node {i + 1}", nodeName, nodeHex);
                     variablesDataGridView.Rows[2 + i].Cells[1].ReadOnly = true;
 
                     i++;
@@ -356,26 +393,20 @@ namespace Fougere
 
                 Node node = AnimationManager.Tracks[categoryIndex].Nodes[itemIndex];
 
-                if (ResourcesDict != null & ResourcesDict.ContainsKey(node.Name))
+                string nodeName = node.Name;
+                string nodeHex = node.Name;
+
+                if (ResourcesDict != null && ResourcesDict.ContainsKey(node.Name))
                 {
-                    variablesDataGridView.Rows.Add("Name", ResourcesDict[node.Name]);
-                    variablesDataGridView.Rows.Add("Hex", node.Name);
-                    variablesDataGridView.Rows.Add("Main Track", Convert.ToString(node.IsInMainTrack));
-                    variablesDataGridView.Rows.Add("Frames", node.Frames.Count());
-                    variablesDataGridView.Rows[0].Cells[1].ReadOnly = true;
-                    variablesDataGridView.Rows[1].Cells[1].ReadOnly = true;
-                    variablesDataGridView.Rows[2].Cells[1].ReadOnly = true;
-                    variablesDataGridView.Rows[3].Cells[1].ReadOnly = true;
+                    nodeName = ResourcesDict[node.Name];
                 }
-                else
-                {
-                    variablesDataGridView.Rows.Add("Name", node.Name);
-                    variablesDataGridView.Rows.Add("Main Track", Convert.ToString(node.IsInMainTrack));
-                    variablesDataGridView.Rows.Add("Frames", node.Frames.Count());
-                    variablesDataGridView.Rows[0].Cells[1].ReadOnly = true;
-                    variablesDataGridView.Rows[1].Cells[1].ReadOnly = true;
-                    variablesDataGridView.Rows[2].Cells[1].ReadOnly = true;
-                }
+
+                variablesDataGridView.Rows.Add("Name", nodeName, nodeHex);
+                variablesDataGridView.Rows.Add("Main Track", Convert.ToString(node.IsInMainTrack));
+                variablesDataGridView.Rows.Add("Frames", node.Frames.Count());
+                variablesDataGridView.Rows[0].Cells[1].ReadOnly = true;
+                variablesDataGridView.Rows[1].Cells[1].ReadOnly = true;
+                variablesDataGridView.Rows[2].Cells[1].ReadOnly = true;
 
                 variablesDataGridView.Enabled = true;
             }
