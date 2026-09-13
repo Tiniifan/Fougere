@@ -35,6 +35,13 @@ namespace Fougere
                 return;
             }
 
+            if (IsCommand(command, "--help", "-h"))
+            {
+                AttachConsole(ATTACH_PARENT_PROCESS);
+                PrintHelp();
+                return;
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Fougere(command));
@@ -43,6 +50,28 @@ namespace Fougere
         private static bool IsCommand(string arg, string name, string alias)
         {
             return arg != null && (arg.Equals(name, StringComparison.OrdinalIgnoreCase) || arg.Equals(alias, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private static void PrintHelp()
+        {
+            Console.WriteLine("Fougere - Level-5 animation editor (.mtn2, .imm2, .mtm2)");
+            Console.WriteLine();
+            Console.WriteLine("Usage:");
+            Console.WriteLine("  Fougere                                            Launch the GUI");
+            Console.WriteLine("  Fougere <file>                                     Launch the GUI and open <file>");
+            Console.WriteLine("  Fougere --tojson|-tj <input> [--output <output>]   Convert an animation file to JSON");
+            Console.WriteLine("  Fougere --toanimation|-ta <input> [--output <output>]");
+            Console.WriteLine("                                                     Convert a JSON file to an animation file");
+            Console.WriteLine("  Fougere --help|-h                                  Show this help message");
+            Console.WriteLine();
+            Console.WriteLine("If --output is omitted, the result is saved next to the input file with the correct extension.");
+            Console.WriteLine();
+            Console.WriteLine("Examples:");
+            Console.WriteLine("  Fougere 000.mtn2");
+            Console.WriteLine("  Fougere --tojson 000.mtn2");
+            Console.WriteLine("  Fougere -tj 000.mtn2 --output result.json");
+            Console.WriteLine("  Fougere --toanimation 000.json");
+            Console.WriteLine("  Fougere -ta 000.json --output 000.mtn2");
         }
 
         private static void RunConversion(string[] args, bool toJson)
